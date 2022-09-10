@@ -22,6 +22,16 @@ class SurpriseView extends StatelessWidget {
                 'Surprise!!!',
                 style: TextStyle(fontSize: 32),
               ),
+              StreamBuilder(
+                  stream: presenter.winCalculatorInteractor.winStream,
+                  initialData: presenter.winCalculatorInteractor.winCount,
+                  builder: (context, winState) {
+                    if (winState.data == null) {
+                      return const Text('Loading...');
+                    }
+
+                    return Text('You won ${winState.data} points!!!');
+                  }),
               ElevatedButton(
                   onPressed: presenter.reset, child: const Text('Reset'))
             ],
