@@ -1,5 +1,5 @@
-import 'package:test_viper_app/presentation/features/counter/counter.dart';
-import 'package:test_viper_app/presentation/features/surprise/surprise.dart';
+import 'package:test_viper_app/presentation/features/counter/counter_wireframe.dart';
+import 'package:test_viper_app/presentation/features/surprise/surprise_wireframe.dart';
 
 class Routes {
   static String counter = '/counter';
@@ -7,6 +7,6 @@ class Routes {
 }
 
 final routes = {
-  Routes.counter: (_) => const Counter(),
-  Routes.surprise: (_) => const Surprise(),
+  Routes.counter: (_) => const CounterWireframe(),
+  Routes.surprise: (_) => const SurpriseWireframe(),
 };

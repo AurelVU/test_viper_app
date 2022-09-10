@@ -1,10 +1,14 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class Router {
-  static late GlobalKey<NavigatorState> _navigator;
-  static init(GlobalKey<NavigatorState> navigator) {
-    _navigator = navigator;
-  }
+  final GlobalKey<NavigatorState> _navigator = GlobalKey<NavigatorState>();
+  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
+
+  GlobalKey<NavigatorState> get navigator => _navigator;
+
+  GlobalKey<ScaffoldMessengerState> get scaffoldMessenger =>
+      _scaffoldMessengerKey;
 
   void routeTo(String route) {
     _navigator.currentState?.pushNamed(route);
@@ -12,5 +16,17 @@ class Router {
 
   void routeBack() {
     _navigator.currentState?.pop();
+  }
+
+  void showErrorSnackBar(String text) {
+    _scaffoldMessengerKey.currentState?.showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
+  }
+
+  void clearSnackBars() {
+    _scaffoldMessengerKey.currentState?.clearSnackBars();
   }
 }
