@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:relation/relation.dart';
 import 'package:test_viper_app/presentation/features/surprise/screen/surprise_interactor.dart';
 import 'package:test_viper_app/router/router.dart';
 import 'package:test_viper_app/viper/presenter.dart';
@@ -9,13 +8,13 @@ class SurprisePresenter extends Presenter<SurpriseInteractor> {
     required SurpriseInteractor interactor,
     required Router router,
   }) : super(
-    interactor: interactor,
-    router: router,
-  );
+          interactor: interactor,
+          router: router,
+        );
 
-  final StreamController<int> _winPointsStreamController = StreamController();
+  final EntityStreamedState<int> _winPointsState = EntityStreamedState<int>();
 
-  Stream<int> get winPointsStream => _winPointsStreamController.stream;
+  EntityStreamedState<int> get winPointsState => _winPointsState;
 
   @override
   void init() {
@@ -31,6 +30,8 @@ class SurprisePresenter extends Presenter<SurpriseInteractor> {
   void _calculateWinPoints() {
     final points = interactor.calculateWinPoints();
 
-    _winPointsStreamController.add(points);
+    _winPointsState.accept(
+      EntityState(data: points),
+    );
   }
 }

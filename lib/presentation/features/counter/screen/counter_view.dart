@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:relation/relation.dart';
 import 'package:test_viper_app/presentation/features/counter/screen/counter_presenter.dart';
 
 class CounterView extends StatelessWidget {
@@ -13,19 +14,18 @@ class CounterView extends StatelessWidget {
       body: Stack(
         children: [
           Center(
-            child: StreamBuilder<int>(
-              stream: presenter.countStream,
-              builder: (context, incrementState) {
-                if (!incrementState.hasData) {
-                  return const Text('Loading...');
-                }
+            child: EntityStateBuilder<int>(
+              streamedState: presenter.countState,
+              builder: (_, count) {
                 return Text(
-                  incrementState.data.toString(),
+                  count.toString(),
                   style: const TextStyle(
                     fontSize: 32,
                   ),
                 );
               },
+              loadingChild: const Text('Loading...'),
+              errorChild: const Text('Error'),
             ),
           ),
           Positioned(

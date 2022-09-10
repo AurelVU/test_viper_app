@@ -3,7 +3,7 @@ import 'package:test_viper_app/util/default_error_handler.dart';
 import 'package:test_viper_app/viper/error_handler.dart';
 import 'package:test_viper_app/viper/scope.dart';
 
-class MainScope extends Scope{
+class MainScope extends Scope {
   MainScope({bool isProductionMode = true})
       : _isProductionMode = isProductionMode {
     if (_isProductionMode) {

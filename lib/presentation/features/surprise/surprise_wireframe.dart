@@ -12,10 +12,10 @@ class SurpriseWireframe extends Wireframe<SurprisePresenter, SurpriseScope> {
     ScopeFactory<SurpriseScope> scopeFactory = _surpriseScopeFactory,
     Key? key,
   }) : super(
-    scopeFactory: scopeFactory,
-    view: const SurpriseView(),
-    key: key,
-  );
+          scopeFactory: scopeFactory,
+          view: const SurpriseView(),
+          key: key,
+        );
 }
 
 SurpriseScope _surpriseScopeFactory(BuildContext context) {

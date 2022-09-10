@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:relation/relation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:test_viper_app/data/exception/counter_exception.dart';
 import 'package:test_viper_app/domain/entity/counter.dart';
@@ -17,10 +18,10 @@ class CounterPresenter extends Presenter<CounterInteractor> {
           router: router,
         );
 
-  final BehaviorSubject<int> _countStream = BehaviorSubject();
+  final EntityStreamedState<int> _countState = EntityStreamedState<int>();
   late final StreamSubscription<Counter> _counterStreamSubscription;
 
-  Stream<int> get countStream => _countStream;
+  EntityStreamedState<int> get countState => _countState;
 
   Stream<Counter> get _counterStream =>
       interactor.counterStream.doOnError(_onCounterError);
@@ -28,6 +29,8 @@ class CounterPresenter extends Presenter<CounterInteractor> {
   @override
   void init() {
     super.init();
+
+    _countState.loading();
 
     _counterStreamSubscription = _counterStream.listen((count) {
       _updateCount(count.count);
@@ -38,7 +41,7 @@ class CounterPresenter extends Presenter<CounterInteractor> {
   @override
   void dispose() {
     _counterStreamSubscription.cancel();
-    _countStream.close();
+    _countState.dispose();
 
     super.dispose();
   }
@@ -54,11 +57,14 @@ class CounterPresenter extends Presenter<CounterInteractor> {
   void _onCounterError(Object error, StackTrace _) {
     if (error is CounterException) {
       router.showErrorSnackBar(error.message);
+      _countState.error();
     }
   }
 
   void _updateCount(int newCount) {
-    _countStream.add(newCount);
+    _countState.accept(
+      EntityState(data: newCount),
+    );
   }
 
   void _checkIsSurprised() {

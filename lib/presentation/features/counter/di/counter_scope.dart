@@ -9,9 +9,8 @@ import 'package:test_viper_app/router/router.dart';
 import 'package:test_viper_app/viper/error_handler.dart';
 import 'package:test_viper_app/viper/scope.dart';
 
-class CounterScope extends Scope{
-  CounterScope({required MainScope mainScope})
-      : _mainInjector = mainScope {
+class CounterScope extends Scope {
+  CounterScope({required MainScope mainScope}) : _mainInjector = mainScope {
     if (_mainInjector.isProductionMode) {
       _setUpProductionMode();
     } else {

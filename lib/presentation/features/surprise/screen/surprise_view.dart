@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:relation/relation.dart';
 import 'package:test_viper_app/presentation/features/surprise/screen/surprise_presenter.dart';
 
 class SurpriseView extends StatelessWidget {
@@ -21,15 +22,12 @@ class SurpriseView extends StatelessWidget {
                   'Surprise!!!',
                   style: TextStyle(fontSize: 32),
                 ),
-                StreamBuilder<int>(
-                  stream: presenter.winPointsStream,
-                  builder: (context, winState) {
-                    if (!winState.hasData) {
-                      return const Text('Loading...');
-                    }
-
-                    return Text('You won ${winState.data} points!!!');
+                EntityStateBuilder<int>(
+                  streamedState: presenter.winPointsState,
+                  builder: (_, winState) {
+                    return Text('You won $winState points!!!');
                   },
+                  loadingChild: const Text('Loading...'),
                 ),
                 ElevatedButton(
                   onPressed: presenter.reset,

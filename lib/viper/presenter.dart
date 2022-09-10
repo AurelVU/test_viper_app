@@ -17,10 +17,10 @@ abstract class Presenter<I extends Interactor> {
   I get interactor => _interactor;
 
   void init() {
-   _interactor.init();
+    _interactor.init();
   }
 
-  void dispose(){
+  void dispose() {
     _interactor.dispose();
   }
 }
