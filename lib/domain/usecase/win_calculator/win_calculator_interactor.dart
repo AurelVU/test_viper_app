@@ -26,4 +26,6 @@ class WinCalculatorInteractor {
       _win.add(_random.nextInt(winCount));
     }
   }
+
+  bool checkIsSurprised(int value) => value > 5;
 }
