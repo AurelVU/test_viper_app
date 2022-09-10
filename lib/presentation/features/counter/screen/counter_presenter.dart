@@ -62,9 +62,7 @@ class CounterPresenter extends Presenter<CounterInteractor> {
   }
 
   void _updateCount(int newCount) {
-    _countState.accept(
-      EntityState(data: newCount),
-    );
+    _countState.content(newCount);
   }
 
   void _checkIsSurprised() {

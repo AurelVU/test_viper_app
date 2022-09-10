@@ -30,8 +30,6 @@ class SurprisePresenter extends Presenter<SurpriseInteractor> {
   void _calculateWinPoints() {
     final points = interactor.calculateWinPoints();
 
-    _winPointsState.accept(
-      EntityState(data: points),
-    );
+    _winPointsState.content(points);
   }
 }
