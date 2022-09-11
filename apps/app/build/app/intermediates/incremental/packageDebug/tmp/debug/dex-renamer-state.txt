@@ -1,0 +1,4 @@
+#Sun Sep 11 12:04:21 MSK 2022
+base.0=/Users/zerokivin/IdeaProjects/test_viper_app/apps/app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
